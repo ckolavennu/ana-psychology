@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ana's website
 
-## Getting Started
+Bilingual psychology website built with Next.js App Router and Tailwind CSS. English is at `/`; Spanish is at `/es/`. This is a preview: contact details, professional and benefits details, and the legal and privacy notices await Ana's approval. All pages are marked `noindex` while the site is a preview.
 
-First, run the development server:
+## Local development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). Run `npm run lint`, `npx tsc --noEmit`, and `npm run build` before publishing.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Static export
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`npm run build` writes the static site to `out/`. The Pages workflow gets the actual base path from `actions/configure-pages`, so it also works if the repository is renamed or uses a root Pages domain. For a local build matching the current repository, use:
 
-## Learn More
+```powershell
+$env:NEXT_PUBLIC_BASE_PATH = "/ana-psychology"
+npm run build
+Remove-Item Env:NEXT_PUBLIC_BASE_PATH
+```
 
-To learn more about Next.js, take a look at the following resources:
+Leave the variable unset for a root domain. The setting prefixes both Next.js links and the photos in `public/images/ana/`; rebuild when it changes. `basePath` handles Next.js assets, so `assetPrefix` is not needed for this Pages site. Trailing slashes produce route directories with `index.html` for direct navigation and refresh. `public/.nojekyll` is copied into `out/`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## GitHub Pages
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+In the repository's **Settings → Pages**, set **Build and deployment → Source** to **GitHub Actions**. Push to `main` or run **Deploy preview to GitHub Pages** manually. The workflow runs lint, TypeScript, and the static build on Ubuntu, verifies every existing route and `.nojekyll`, and deploys `out/` with GitHub's official Pages Actions. Check the workflow result before treating deployment as successful.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Before treating the site as final, Ana needs to confirm contact details and availability, professional background and service claims, the stated DLA/PIP age ranges, and the content of the legal and privacy pages. The welfare benefits service must remain separate from psychology services. Once approved, remove the preview notice and `noindex` metadata.
