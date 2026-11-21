@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --cream: #faf8f2;
-  --sand: #e9e3d6;
-  --mist: #dde6e4;
-  --sage: #47695d;
-  --ink: #243b38;
-  --muted: #52645f;
-  --line: #cbd5ce;
+  --cream: #fbf8f2;
+  --sand: #eee8de;
+  --mist: #dce9e9;
+  --sage: #527d80;
+  --ink: #213f43;
+  --muted: #526c6e;
+  --line: #cbdcda;
 }
 
 @theme inline {
@@ -32,3 +32,20 @@ section[id] { scroll-margin-top: 6rem; }
 
 @media (min-width: 640px) { .site-container { width: min(100% - 4rem, 76rem); } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: 0.01ms !important; } }
+
+/* Soft coastal palette: restrained sea-blue washes rather than decorative beach imagery. */
+#home {
+  position: relative;
+  isolation: isolate;
+}
+#home::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc(50% - 50vw);
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 36% 45% at 96% 83%, rgba(164, 202, 205, 0.22), transparent 80%),
+    radial-gradient(ellipse 30% 45% at 4% 88%, rgba(205, 224, 222, 0.20), transparent 82%),
+    linear-gradient(125deg, #fbf8f2 24%, #f9f8f4 65%, #f2f8f7 100%);
+}
